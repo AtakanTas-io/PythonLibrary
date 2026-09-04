@@ -1,23 +1,14 @@
-import schedule
-import time
-from plyer import notification
+"""PythonLibrary ana çalıştırma betiği."""
 
-def su_icme_uyarisi():
-    notification.notify(
-        title = "Su İçme Vakti! 💧",
-        message = "Sağlığın için bir bardak su içmeyi unutma. Hadi, hemen mutfağa!",
-        app_name = "Su Hatırlatıcı",
-        timeout = 15
-    )
-    print("Bildirim gönderildi: Su içme vakti!")
+import sys
+from pathlib import Path
 
+# src dizinini import arama yoluna ekle (yerel çalıştırmalar için)
+src_dir = Path(__file__).resolve().parent / "src"
+if str(src_dir) not in sys.path:
+    sys.path.insert(0, str(src_dir))
 
-schedule.every(10).minutes.do(su_icme_uyarisi)
+from python_library.cli import main
 
-
-
-print("Su Hatirlaticisi aktif")
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+if __name__ == "__main__":
+    sys.exit(main())
